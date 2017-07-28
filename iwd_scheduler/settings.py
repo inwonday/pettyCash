@@ -25,7 +25,7 @@ SECRET_KEY = '()wum)p8nzpr39rly!p(p5qxm%xw)@tk00k1x2syrs$*k!s5@1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['83vbeev0.apps.lair.io', '13.126.98.144', '13.126.98.144:8000']
+ALLOWED_HOSTS = ['83vbeev0.apps.lair.io', '13.126.98.144', '13.126.98.144:8000', 127.0.0.1:8000, 127.0.0.1]
 
 
 # Application definition
