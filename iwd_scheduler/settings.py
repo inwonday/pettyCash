@@ -127,3 +127,4 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
+ADMIN_SITE_HEADER = "BlueWaveIndia Admin"
