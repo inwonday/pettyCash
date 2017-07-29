@@ -17,6 +17,9 @@ from django.conf.urls import url
 from django.contrib import admin
 from bwi import views as bwiViews
 
+from django.conf import settings
+admin.site.site_header = settings.ADMIN_SITE_HEADER
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^addPettyCashEntry', bwiViews.addPettyCashEntry, name="addPettyCashEntry"),
