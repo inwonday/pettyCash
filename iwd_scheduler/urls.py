@@ -32,5 +32,5 @@ urlpatterns = [
     url(r'^activities', bwiViews.operationalTransactions),
     url(r'^login', bwiViews.loginuser, name="login"),
     url(r'^logout', bwiViews.logoutuser),
-    url(r'^rough', bwiViews.rough),
+    url(r'^changepassword', bwiViews.rough, name="changepassword"),
 ]
