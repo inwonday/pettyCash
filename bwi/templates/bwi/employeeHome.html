@@ -107,7 +107,7 @@
 					<div class="form-group">
                         <select type="text" name="transactionType" id="transactionType" class="form-control input-lg" tabindex="2">
                         	 {% for transaction in transactions %}
-                        	<option value="{{ transaction.id}}">{{transaction.name|capfirst}}</option>
+                        	<option value="{{ transaction.name}}">{{transaction.name|capfirst}}</option>
                             {% endfor %}
 
                         </select>
@@ -170,11 +170,11 @@
     });
     $('#transactionType').on('change', function() {
       var val = this.value;
-      if (val == "2"){
+      if (val.match(/operation/i) != null){
           $('.pettyCashButtons').hide();
           $('.operationalButtons').show();
       }
-      else if (val == "1"){
+      else if (val.match(/petty/i) != null){
           $('.pettyCashButtons').show();
           $('.operationalButtons').hide();
       }
