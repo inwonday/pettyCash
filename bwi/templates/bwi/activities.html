@@ -58,7 +58,6 @@
         <table id="pettyCashReceipts" class="display table-striped">
     <thead>
         <tr>
-            <th class="right-border">Actvity Number</th>
             <th class="right-border">Date</th>
             <th class="right-border">From</th>
             <th class="right-border">To</th>
@@ -69,7 +68,6 @@
     <tbody>
         {% for entry in activities %}
         <tr>
-        	<td class="right-border bottom-border">{{entry.pk}}</td>
             <td class="right-border bottom-border">{{entry.opFrom|date:'d-m-y'}}</td>
             <td class="right-border bottom-border">{{entry.opFrom|date:'H:i'}}</td>
             <td class="right-border bottom-border">{{entry.opTo|date:'H:i'}}</td>
