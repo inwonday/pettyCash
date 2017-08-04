@@ -33,7 +33,7 @@
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
            .box{
-    padding: 20px;
+    padding: 6px;
     margin: 0 auto;
     background-color: #eee;
     border: 3px dotted rgba(0,0,0,0.1);
@@ -48,7 +48,7 @@
         <div class="message">
             {{message}}
         </div>
-		<form role="form" method="post" action="/addPettyCashEntry"  class="box">
+		<form role="form" name="myForm" onSubmit="return validateForm()" method="post" action="/addPettyCashEntry"  class="box">
             {% csrf_token %}
 			<h2><small> Add New Petty Cash Entry.</small></h2>
             <br/>
@@ -69,8 +69,22 @@
 					</div>
 				</div>
 			</div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
 				<input type="text" name="beneficiary" id="beneficiary" class="form-control input-lg" placeholder="Beneficiary Name" tabindex="4">
+                    </div>
+                </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+			<div class="form-group">
+                <select type="text" name="category" id="category" class="form-control input-lg" placeholder=" Remarks" tabindex="4">
+                    <option value="">Category</option>
+					{% for category in categories %}
+                    <option value={{category.name}}>{{category.name}}</option>
+                    {% endfor %}
+				</select>
+                        </div>
+                    </div>
 			</div>
             <div class="form-group">
 				<input type="text" name="description" id="description" class="form-control input-lg" placeholder="Description" tabindex="4">
@@ -112,14 +126,6 @@
 				</div>
 			</div>
             <div class="form-group">
-				<select type="text" name="category" id="category" class="form-control input-lg" placeholder=" Remarks" tabindex="4">
-                    <option value="">Category</option>
-					{% for category in categories %}
-                    <option value={{category.name}}>{{category.name}}</option>
-                    {% endfor %}
-				</select>
-			</div>
-            <div class="form-group">
 				<input type="text" name="remarks" id="remarks" class="form-control input-lg" placeholder=" Remarks" tabindex="4">
 			</div>
 
@@ -133,33 +139,54 @@
 		</form>
 	</div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
-			</div>
-			<div class="modal-body">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 </div>
 
 
 <script>
+     function raisealert(msg){
+         alert(msg + " must be filled out");
+         return false;
+    }
+
+    function validateForm() {
+        var x = document.forms["myForm"]["receiptNumber"].value;
+        if (x == "") {
+            return raisealert("Receipt Number")
+        }
+        x = document.forms["myForm"]["paymentType"].value;
+        if (x == "") {
+            return raisealert("Payment Type")
+        }
+         x = document.forms["myForm"]["beneficiary"].value;
+        if (x == "") {
+            return raisealert("Beneficiary")
+        }
+         x = document.forms["myForm"]["description"].value;
+        if (x == "") {
+            return raisealert("Description")
+        }
+         x = document.forms["myForm"]["unitPrice"].value;
+        if (x == "") {
+            return raisealert("Unit Price")
+        }
+         x = document.forms["myForm"]["uom"].value;
+        if (x == "") {
+            return raisealert("UOM")
+        }
+        x = document.forms["myForm"]["quantity"].value;
+        if (x == "") {
+            return raisealert("Quantity")
+        }
+        x = document.forms["myForm"]["category"].value;
+        if (x == "") {
+            return raisealert("Category")
+        }
+         x = document.forms["myForm"]["remarks"].value;
+        if (x == "") {
+            return raisealert("Remarks")
+        }
+        return true;
+	}
 	$(function () {
 
      $("#quantity").keyup(function(){
