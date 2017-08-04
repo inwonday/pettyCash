@@ -60,12 +60,10 @@
         <table id="pettyCashReceipts" class="display table-striped">
     <thead>
         <tr>
-            <th class="right-border">Entry Number</th>
             <th class="right-border">Date</th>
             <th class="right-border">Receipt Number</th>
             <th class="right-border">Reference Number</th>
             <th class="right-border">Payment Type</th>
-            <th class="right-border">Beneficiary</th>
             <th class="right-border">Description</th>
             <th class="right-border">Amount Received</th>
             <th class="right-border">Remarks</th>
@@ -74,12 +72,10 @@
     <tbody>
          {% for entry in receipts %}
         <tr>
-            <td class="right-border bottom-border">{{entry.pk}}</td>
             <td class="right-border bottom-border">{{entry.createdAt|date:'d-m-y'}}</td>
             <td class="right-border bottom-border">{{entry.receiptNumber}}</td>
             <td class="right-border bottom-border">{{entry.referenceNumber}}</td>
             <td class="right-border bottom-border">{{entry.paymentType}}</td>
-            <td class="right-border bottom-border">{{entry.beneficiary}}</td>
             <td class="right-border bottom-border">{{entry.description}}</td>
             <td class="right-border bottom-border">{{entry.amountReceived}}</td>
             <td class="right-border bottom-border">{{entry.remarks}}</td>
