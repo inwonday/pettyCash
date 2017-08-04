@@ -45,6 +45,7 @@ class UserProfile(models.Model):
     title = models.CharField(choices=TITLE_CHOICES, max_length=5, default="Mr.")
     company = models.ForeignKey(Company, null=True, blank=True)
     divisions = models.ManyToManyField(Division)
+    fullName = models.CharField(max_length=30, null=True, blank=True)
     Phone_No = models.CharField(max_length=11, null=True, blank=True)
     UserType = models.CharField(max_length=15, null=True, blank=True)
     Created_At = models.DateTimeField(auto_now_add=True)
