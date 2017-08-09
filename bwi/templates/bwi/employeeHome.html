@@ -34,23 +34,18 @@
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
 
-    .box{
-    	padding: 20px;
-    margin: 0 auto;
-    background-color: #eee;
-    border: 3px dotted rgba(0,0,0,0.1);
-        }
 .but:hover{
   text-decoration:none;
 }
 .size{
-  font-size:21px;
+  font-size:15px;
    margin-top:5px;
 }
 
 </style>
 {% include "bwi/common/_header.html" %}
 <div class="container" style="margin-top:100px">
+    <div class="wrapper">
 <div class="row">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 		<div role="form" class="box">
@@ -84,7 +79,7 @@
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-                        <select type="text" name="paymentType" id="paymentType" class="form-control input-lg" placeholder="Payment Type" tabindex="2">
+                        <select type="text" name="paymentType" id="paymentType" class="form-control input-sm" placeholder="Payment Type" tabindex="2">
 
                         	 {% for division in divisions %}
                         	<option value="{{ division.id}}">{{division.name|capfirst}}</option>
@@ -105,7 +100,7 @@
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-                        <select type="text" name="transactionType" id="transactionType" class="form-control input-lg" tabindex="2">
+                        <select type="text" name="transactionType" id="transactionType" class="form-control input-sm" tabindex="2">
                             <option value="">Select</option>
                         	 {% for transaction in transactions %}
                         	<option value="{{ transaction.name}}">{{transaction.name|capfirst}}</option>
@@ -136,9 +131,11 @@
 		</div>
 	</div>
 </div>
+        </div>
 <!-- Modal -->
 
 <script>
+    $('.menu').css("display", "block");
      $('.operationalButtons').hide();
     $('.pettyCashButtons').hide();
 	$(function () {
