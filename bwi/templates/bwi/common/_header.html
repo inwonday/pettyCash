@@ -15,6 +15,88 @@
         width: 27px;
     }
 </style>
+<style>
+ .menu  .list-menu {
+        margin:0 auto;
+        background-color: royalblue;
+
+      }
+      .menu .list-menu:after {
+        display: block;
+        content:"";
+        clear:both;
+      }
+      .menu .list-menu > li {
+        float:left;
+        position: relative;
+
+      }
+      .menu .list-menu > li   > a {
+        padding:10px 20px;
+        color:#f6f6f6;
+        position: relative;
+
+      }
+
+      .menu .list-menu > li:hover {
+        background-color: skyblue;
+      }
+      .menu .list-menu > :not(:first-child) {
+        margin-left:20px;
+      }
+      .menu .list-menu .sub-menu , .extreme-sub-menu {
+
+        display: none;
+        position: absolute;
+        top:100%;
+        left:0;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        min-width: 160px;
+        white-space: nowrap;
+        max-width: 400px;
+
+
+      }
+      .extreme-sub-menu {
+        top:0;
+        left:100%;
+      }
+      .sub-menu > li {
+        position: relative;
+      }
+      .menu .list-menu .sub-menu > li a {
+        display: block;
+        color:#4a4a4a;
+        padding:10px 20px;
+        position: relative;
+      }
+      .menu .list-menu .sub-menu > li a:hover {
+        background-color: skyblue;
+        color:#f6f6f6;
+      }
+      .menu .list-menu li:hover .sub-menu , .sub-menu li:hover .extreme-sub-menu  {
+        display: block;
+      }
+     ul,li {
+        list-style-type: none;
+        padding:0;
+        margin:0;
+      }
+
+     a {
+        display: block;
+        color:#fff;
+        text-decoration: none !important;
+      }
+    .navbar-inverse {
+        background-color: royalblue;
+        margin-bottom: 0px;
+    }
+
+
+</style>
 <div class="navbar-wrapper">
   <div class="container">
     <div class="navbar navbar-inverse navbar-static-top">
@@ -25,16 +107,73 @@
 	      <span class="icon-bar"></span>
 	      <span class="icon-bar"></span>
 	    </a>
-        <a class="navbar-brand" href="#" target="_blank">Lagan Tradcom India Pvt. Ltd.</a>
+        <a class="welcome" href="#" target="_blank">Lagan Tradcom India Pvt. Ltd.</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
               <li><span class="welcome">Welcome {{profile.title}} {{profile.fullName}}</span></li>
-            <li><a href="/logout">Logout</a></li>
+              <li><span class="welcome date"></span></li>
+               <li><span class="welcome time"></span></li>
           </ul>
 
         </div>
 
     </div>
   </div><!-- /container -->
+    <div class="container">
+
+    <div class="menu">
+      <ul class="list-menu">
+           <li> <a href="#">Home</a>
+          	<ul class="sub-menu">
+                <li> <a href="/profile">Profile</a> </li>
+                <li> <a href="/changepassword">Change Password</a> </li>
+                <li> <a href="/logout">Logout</a> </li>
+            </ul>
+          </li>
+            <li> <a href="#">Company</a>
+          	<ul class="sub-menu">
+            	 {% for company in companies %}
+                <li> <a href="#" data-id="{{company.id}}">{{company.name}}</a> </li>
+                  {% endfor %}
+            </ul>
+          </li>
+          <li> <a href="#">Division</a>
+              <ul class="sub-menu">
+                  {% for division in divisions %}
+                <li> <a href="#" data-id="{{division.id}}">{{division.name}}</a> </li>
+                  {% endfor %}
+              </ul>
+          </li>
+        <li> <a href="#">Transaction</a>
+          <ul class="sub-menu">
+            <li> <a href="#">PettyCash</a>
+			<ul class="extreme-sub-menu">
+                <li> <a href="/addPettyCashEntry">Add Petty Cash Entry</a> </li>
+                <li> <a href="/addPettyCashReceipt">Add Petty Cash Receipt</a> </li>
+                <li> <a href="/pettyCashEntries">View Petty Cash Entry</a> </li>
+                <li> <a href="/pettyCashReceipts">View Petty Cash Receipt</a> </li>
+              </ul>
+			  </li>
+            <li> <a href="#">Activity</a>
+                <ul class="extreme-sub-menu">
+                    <li> <a href="/addActivity">Add Activity</a></li>
+                    <li> <a href="/activities">View Activity</a></li>
+                </ul>
+			</li>
+          </ul></li>
+      </ul>
+    </div>
+        </div>
 </div><!-- /navbar wrapper -->
+
+<script>
+    function tick(){
+        var today = new Date();
+        var date = today.toDateString();
+        var time = today.toTimeString().split(' ')[0];
+        $('.date').html(date);
+        $('.time').html(time);
+    }
+    setInterval(function(){ tick(); }, 1000);
+</script>
