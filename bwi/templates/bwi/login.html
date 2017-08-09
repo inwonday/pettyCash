@@ -39,8 +39,7 @@
         }
 
         .wrapper {
-	margin-top: 80px;
-	margin-bottom: 20px;
+    background-color: #eee;
 }
 
 .form-signin {
@@ -48,12 +47,12 @@
   padding: 30px 38px 66px;
   margin: 0 auto;
   background-color: #eee;
-  border: 3px dotted rgba(0,0,0,0.1);
   }
 
 .form-signin-heading {
   text-align:center;
   margin-bottom: 30px;
+  font-size: 15px;
 }
 
 .form-control {
@@ -64,7 +63,7 @@
 }
 
 input[type="text"] {
-  margin-bottom: 0px;
+  margin-bottom: 20px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -90,6 +89,12 @@ input[type="password"] {
             text-align: right;
     		margin-top: 5px;
         }
+        .password a {
+            color: #337ab7;
+        }
+         .form-control {
+            font-size: 12px !important;
+        }
 </style>
 
 
@@ -99,7 +104,7 @@ input[type="password"] {
 	<div class="wrapper">
 		<form action="" method="post" name="Login_Form" class="form-signin" method="post" action="/login">
             {% csrf_token%}
-		    <h3 class="form-signin-heading">Welcome! Please Sign In</h3>
+
 
 			  <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" />
 			  <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
@@ -109,3 +114,6 @@ input[type="password"] {
 		</form>
 	</div>
 </div>
+<script>
+	$('.menu').css('display', 'none');
+</script>
