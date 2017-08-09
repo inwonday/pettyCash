@@ -168,7 +168,9 @@ def loginuser(request):
         else:
             return redirect('adminHome')
     else:
-        return render(request, 'bwi/login.html')
+        companies = Company.objects.all()
+        divisions = Division.objects.all()
+        return render(request, 'bwi/login.html', {'companies':companies, 'divisions':divisions})
 
 
 def logoutuser(request=None):
@@ -195,4 +197,6 @@ def rough(request=None):
                 return redirect('login')
         return render(request, 'bwi/rough.html')
     else:
-         return render(request, 'bwi/rough.html')
+        companies = Company.objects.all()
+        divisions = Division.objects.all()
+        return render(request, 'bwi/rough.html', {'companies':companies, 'divisions':divisions})
