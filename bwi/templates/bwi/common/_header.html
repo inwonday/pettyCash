@@ -18,7 +18,7 @@
 <style>
  .menu  .list-menu {
         margin:0 auto;
-        background-color: royalblue;
+        background-color: skyblue;
 
       }
       .menu .list-menu:after {
@@ -39,7 +39,7 @@
       }
 
       .menu .list-menu > li:hover {
-        background-color: skyblue;
+        background-color: royalblue;
       }
       .menu .list-menu > :not(:first-child) {
         margin-left:20px;
@@ -73,7 +73,7 @@
         position: relative;
       }
       .menu .list-menu .sub-menu > li a:hover {
-        background-color: skyblue;
+        background-color: royalblue;
         color:#f6f6f6;
       }
       .menu .list-menu li:hover .sub-menu , .sub-menu li:hover .extreme-sub-menu  {
@@ -130,8 +130,12 @@
 	      <span class="icon-bar"></span>
 	    </a>
         <a class="welcome" href="#" target="_blank">Lagan Tradcom India Pvt. Ltd.</a>
+
         </div>
         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li><span class="welcome divisionSpan"></span></li>
+            </ul>
           <ul class="nav navbar-nav navbar-right">
               <li><span class="welcome">Welcome {{profile.title}} {{profile.fullName}}</span></li>
               <li><span class="welcome date"></span></li>
@@ -146,28 +150,27 @@
 
     <div class="menu">
       <ul class="list-menu">
-           <li> <a href="#">Home</a>
+           <li class="home"> <a href="#">Home</a>
           	<ul class="sub-menu">
-                <li> <a href="/profile">Profile</a> </li>
                 <li> <a href="/changepassword">Change Password</a> </li>
                 <li> <a href="/logout">Logout</a> </li>
             </ul>
           </li>
-            <li> <a href="#">Company</a>
+            <li class="company"> <a href="#">Company</a>
           	<ul class="sub-menu">
             	 {% for company in companies %}
-                <li> <a href="#" data-id="{{company.id}}">{{company.name}}</a> </li>
+                <li class="companyName"> <a href="#" data-id="{{company.id}}">{{company.name}}</a> </li>
                   {% endfor %}
             </ul>
           </li>
-          <li> <a href="#">Division</a>
+          <li class="division"> <a href="#">Division</a>
               <ul class="sub-menu">
                   {% for division in divisions %}
-                <li> <a href="#" data-id="{{division.id}}">{{division.name}}</a> </li>
+                <li class="divisionName"> <a href="#" data-id="{{division.id}}">{{division.name}}</a> </li>
                   {% endfor %}
               </ul>
           </li>
-        <li> <a href="#">Transaction</a>
+        <li class="transaction"> <a href="#">Transaction</a>
           <ul class="sub-menu">
             <li> <a href="#">PettyCash</a>
 			<ul class="extreme-sub-menu">
@@ -198,4 +201,54 @@
         $('.time').html(time);
     }
     setInterval(function(){ tick(); }, 1000);
+    if (localStorage.getItem('companyId') == null){
+    	$('.division').css("display", "none");
+    } else {
+        var el = $('.companyName').find('a[data-id='+ localStorage.getItem('companyId') +']')
+        Changecss(el)
+    }
+    if (localStorage.getItem('divisionId') == null){
+    	$('.transaction').css("display", "none");
+    } else {
+        var el = $('.divisionName').find('a[data-id='+ localStorage.getItem('divisionId') +']')
+        $('.divisionSpan').html(localStorage.getItem('divisionName'));
+        Changecss(el)
+    }
+    $('.menu').css("display", "block");
+
+    function Changecss(el){
+         $(el).css('background-color','royalblue');
+         $(el).css('color','white');
+    }
+
+    function printData()
+    {
+       var divToPrint=$("table")[0];
+       newWin= window.open("");
+       newWin.document.write(divToPrint.outerHTML);
+       newWin.print();
+       newWin.close();
+    }
+
+    $(function () {
+
+        $('.companyName').click(function(){
+            $('.companyName').css('background-color','white');
+            $('.companyName').find('a').css('color','#4a4a4a');
+            $(this).css('background-color','royalblue');
+            $(this).find('a').css('color','white');
+            localStorage.setItem('companyId', $(this).find('a').data("id"))
+            $('.division').css("display", "block");
+        });
+         $('.divisionName').click(function(){
+             $('.divisionName').css('background-color','white');
+            $('.divisionName').find('a').css('color','#4a4a4a');
+             $(this).css('background-color','royalblue');
+             $(this).find('a').css('color','white');
+             localStorage.setItem('divisionId', $(this).find('a').data("id"))
+              localStorage.setItem('divisionName', $(this).find('a').html());
+             $('.divisionSpan').html($(this).find('a').html());
+            $('.transaction').css("display", "block");
+        });
+    });
 </script>
