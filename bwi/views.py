@@ -19,10 +19,10 @@ def home(request=None):
             companies = Company.objects.all()
             divisions = Division.objects.all()
             transactions = Transaction.objects.all()
-            return render(request, 'bwi/adminHome.html', {'companies': companies,'divisions':divisions,'transactions':transactions})
+            return render(request, 'bwi/adminHome.html', {'companies': companies,'divisions':divisions,'transactions':transactions, 'profile':profile})
         else:
             transactions = Transaction.objects.all()
-            return render(request, 'bwi/employeeHome.html', {'transactions':transactions, 'profile': profile, 'divisions': profile.divisions.all()})
+            return render(request, 'bwi/employeeHome.html', {'transactions':transactions, 'profile': profile, 'divisions': profile.divisions.all(), 'companies': [profile.company]})
 
 def employeeHome(request=None):
     companies = Company.objects.all()
@@ -43,11 +43,8 @@ def pettyCashEntries(request=None):
         entries = PettyCashEntry.objects.filter(profile=user_profile);
     else:
         entries = PettyCashEntry.objects.all()
-    print  PettyCashReceipt.objects.aggregate(Sum('amountReceived'))
-    print PettyCashEntry.objects.aggregate(Sum('totalAmount'))
     bal = PettyCashReceipt.objects.aggregate(Sum('amountReceived')).get('amountReceived__sum') - PettyCashEntry.objects.aggregate(Sum('totalAmount')).get('totalAmount__sum')
-
-    return render(request, 'bwi/pettyCashEntries.html',{'entries': entries, 'balance':bal, 'profile': user_profile})
+    return render(request, 'bwi/pettyCashEntries.html',{'entries': entries, 'balance':bal, 'profile': user_profile, 'companies': [user_profile.company],'divisions': user_profile.divisions.all()})
 
 def pettyCashReceipts(request=None):
     if request.user.is_anonymous():
@@ -59,7 +56,7 @@ def pettyCashReceipts(request=None):
         receipts = PettyCashReceipt.objects.all()
 
     bal = PettyCashReceipt.objects.aggregate(Sum('amountReceived')).get('amountReceived__sum') - PettyCashEntry.objects.aggregate(Sum('totalAmount')).get('totalAmount__sum')
-    return render(request, 'bwi/pettyCashReceipts.html',{'receipts': receipts, 'balance':bal, 'profile': user_profile})
+    return render(request, 'bwi/pettyCashReceipts.html',{'companies': [user_profile.company],'divisions':user_profile.divisions.all(),'receipts': receipts, 'balance':bal, 'profile': user_profile})
 
 def addPettyCashEntry(request=None):
     if request.user.is_anonymous():
@@ -81,7 +78,9 @@ def addPettyCashEntry(request=None):
         return redirect('addPettyCashEntry')
     else:
         user_profile = UserProfile.objects.filter(user=request.user.pk).first()
-        return render(request, 'bwi/addPettyCashEntry.html', {'categories':categories, 'profile': user_profile})
+        companies = Company.objects.all()
+        divisions = Division.objects.all()
+        return render(request, 'bwi/addPettyCashEntry.html', {'companies': [user_profile.company],'divisions':user_profile.divisions.all(),'categories':categories, 'profile': user_profile})
 
 def addPettyCashReceipt(request=None):
     if request.user.is_anonymous():
@@ -101,7 +100,7 @@ def addPettyCashReceipt(request=None):
         return redirect('addPettyCashReceipt')
     else:
         user_profile = UserProfile.objects.filter(user=request.user.pk).first()
-        return render(request, 'bwi/addPettyCashReceipt.html', {'profile': user_profile})
+        return render(request, 'bwi/addPettyCashReceipt.html', {'companies': [user_profile.company],'divisions':user_profile.divisions.all(),'profile': user_profile})
 
 def getPettyCashEntry(request=None):
     pass
@@ -140,7 +139,7 @@ def addActivity(request=None):
         return redirect('addActivity')
     else:
         user_profile = UserProfile.objects.filter(user=request.user.pk).first()
-        return render(request, 'bwi/addActivity.html', {'profile': user_profile})
+        return render(request, 'bwi/addActivity.html', {'profile': user_profile, 'companies':[user_profile.company], 'divisions':user_profile.divisions.all()})
 
 def operationalTransactions(request=None):
     if request.user.is_anonymous():
@@ -149,8 +148,8 @@ def operationalTransactions(request=None):
     if user_profile and user_profile.UserType != 'admin':
         activities = OperationalTransaction.objects.filter(profile=user_profile)
     else:
-         activities = OperationalTransaction.objects.all()
-    return render(request, 'bwi/activities.html',{'activities':activities, 'profile':user_profile})
+        activities = OperationalTransaction.objects.all()
+    return render(request, 'bwi/activities.html',{'companies': [user_profile.company],'divisions':user_profile.divisions.all(),'activities':activities, 'profile':user_profile})
 
 def loginuser(request):
     if request.method == 'POST':
