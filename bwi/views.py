@@ -199,3 +199,12 @@ def rough(request=None):
         companies = Company.objects.all()
         divisions = Division.objects.all()
         return render(request, 'bwi/rough.html', {'companies':companies, 'divisions':divisions})
+
+def balance(request=None):
+    divisionId = request.GET['divisionid']
+    print divisionId
+    user = request.user
+    profile = UserProfile.objects.filter(user=user.pk).first()
+    bal = PettyCashReceipt.objects.filter(division_id=divisionId, profile=profile).aggregate(Sum('amountReceived')).get('amountReceived__sum') - PettyCashEntry.objects.filter(division_id=divisionId, profile=profile).aggregate(Sum('totalAmount')).get('totalAmount__sum')
+    from django.http import JsonResponse
+    return JsonResponse({'balance':bal})
