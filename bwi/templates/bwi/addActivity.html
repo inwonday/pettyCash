@@ -51,6 +51,7 @@
 		<form role="form" name="myForm" onSubmit="return validateForm()" method="post" action="/addActivity" class="box">
 
             {% csrf_token %}
+            <input type="hidden" class="divisionInput" name="division_id" value="">
 			<h2> <small>Add New Activity.</small></h2>
             <br/>
             <div class="form-group">
