@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from bwi import views as bwiViews
-
 from django.conf import settings
 admin.site.site_header = settings.ADMIN_SITE_HEADER
 
@@ -33,4 +32,5 @@ urlpatterns = [
     url(r'^login', bwiViews.loginuser, name="login"),
     url(r'^logout', bwiViews.logoutuser),
     url(r'^changepassword', bwiViews.rough, name="changepassword"),
+    url(r'^balance', bwiViews.balance, name="balance"),
 ]
