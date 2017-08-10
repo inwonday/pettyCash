@@ -50,6 +50,7 @@
         </div>
 		<form role="form" name="myForm" onSubmit="return validateForm()" method="post" action="/addPettyCashEntry"  class="box">
             {% csrf_token %}
+            <input type="hidden" class="divisionInput" name="division_id" value="">
 			<h2><small> Add New Petty Cash Entry.</small></h2>
             <br/>
 			<div class="row">
