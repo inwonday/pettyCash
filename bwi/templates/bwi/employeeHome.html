@@ -49,85 +49,6 @@
 <div class="row">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 		<div role="form" class="box">
-            <div>
-                <br/>
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-                        <h2 class="size">
-                            Company
-                        </h2>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-
-                        	  <h2 class="size">
-                            {{profile.company.name}}
-                        </h2>
-					</div>
-				</div>
-			</div>
-            <hr/>
-            <div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-                        <h2 class="size">
-                            Division
-                        </h2>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-                        <select type="text" name="paymentType" id="paymentType" class="form-control input-sm" placeholder="Payment Type" tabindex="2">
-
-                        	 {% for division in divisions %}
-                        	<option value="{{ division.id}}">{{division.name|capfirst}}</option>
-                            {% endfor %}
-
-                        </select>
-					</div>
-				</div>
-			</div>
-            <hr/>
-            <div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-                        <h2 class="size">
-                            Transaction
-                        </h2>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-                        <select type="text" name="transactionType" id="transactionType" class="form-control input-sm" tabindex="2">
-                            <option value="">Select</option>
-                        	 {% for transaction in transactions %}
-                        	<option value="{{ transaction.name}}">{{transaction.name|capfirst}}</option>
-                            {% endfor %}
-
-                        </select>
-					</div>
-				</div>
-			</div>
-
-             <div class="row">
-                <div class="col-xs-6 col-md-6"><a href="/addPettyCashEntry" class="but"><input type="submit" value="Add Petty Cash Entry" class="btn btn-primary btn-block btn-lg pettyCashButtons" tabindex="7" style="font-size:17px"></a></div>
-                <div class="col-xs-6 col-md-6"><a href="/addPettyCashReceipt" class="but size"><input type="submit" value="Add Petty Cash Receipts" class="btn btn-primary btn-block btn-lg pettyCashButtons" tabindex="7" style="font-size:16px"></a></div>
-
-			</div>
-            <div class="row">
-                <div class="col-xs-6 col-md-6"><a href="/activities" class="but"><input type="submit" value="View Task" class="btn btn-primary btn-block btn-lg operationalButtons" tabindex="7"></a></div>
-                <div class="col-xs-6 col-md-6"><a href="/addActivity" class="but"><input type="submit" value="Add Task" class="btn btn-primary btn-block btn-lg operationalButtons" tabindex="7"></a></div>
-
-			</div>
-            <br/>
-			<div class="row">
-
-                <div class="col-xs-6 col-md-6"><a href="/pettyCashEntries" class="but"><input type="submit" value="View Petty Cash Entry" class="btn btn-primary btn-block btn-lg pettyCashbuttons" tabindex="7" style="font-size:17px"></a></div>
-                <div class="col-xs-6 col-md-6"><a href="/pettyCashReceipts" class="but"><input type="submit" value="View Petty Cash Receipts" class="btn btn-primary btn-block btn-lg pettyCashbuttons" tabindex="7" style="font-size:16px;"></a></div>
-            </div>
-                </div>
 		</div>
 	</div>
 </div>
@@ -135,29 +56,12 @@
 <!-- Modal -->
 
 <script>
+     $('.division').css("display", "none");
+    $('.transaction').css("display", "none");
     $('.menu').css("display", "block");
-     $('.operationalButtons').hide();
-    $('.pettyCashButtons').hide();
+
 	$(function () {
 
-    $('.submit').click(function(){
-       alert('Coming soon.');
-    });
-    $('#transactionType').on('change', function() {
-      var val = this.value;
-      if (val.match(/operation/i) != null){
-          $('.pettyCashButtons').hide();
-          $('.operationalButtons').show();
-      }
-      else if (val.match(/petty/i) != null){
-          $('.pettyCashButtons').show();
-          $('.operationalButtons').hide();
-      }
-      else {
-          $('.pettyCashButtons').hide();
-          $('.operationalButtons').hide();
-      }
-    });
     $('.button-checkbox').each(function () {
 
         // Settings
