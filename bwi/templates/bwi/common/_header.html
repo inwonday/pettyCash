@@ -135,6 +135,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
                 <li><span class="welcome divisionSpan"></span></li>
+                 <li><span class="welcome balanceSpan"></span></li>
             </ul>
           <ul class="nav navbar-nav navbar-right">
               <li><span class="welcome">Welcome {{profile.title}} {{profile.fullName}}</span></li>
@@ -212,6 +213,7 @@
     } else {
         var el = $('.divisionName').find('a[data-id='+ localStorage.getItem('divisionId') +']')
         $('.divisionSpan').html(localStorage.getItem('divisionName'));
+        ChangeBalance(localStorage.getItem('divisionId'));
         Changecss(el)
     }
     $('.menu').css("display", "block");
@@ -219,6 +221,13 @@
     function Changecss(el){
          $(el).css('background-color','royalblue');
          $(el).css('color','white');
+    }
+
+    function ChangeBalance(divisionId) {
+        $('.balanceSpan').html('');
+        $.getJSON('/balance?divisionid='+ divisionId, function(data){
+            $('.balanceSpan').html('Bal: ' + data.balance);
+        });
     }
 
     function printData()
@@ -250,6 +259,7 @@
              localStorage.setItem('divisionId', $(this).find('a').data("id"))
               localStorage.setItem('divisionName', $(this).find('a').html());
              $('.divisionSpan').html($(this).find('a').html());
+             ChangeBalance($(this).find('a').data("id"));
             $('.transaction').css("display", "block");
         });
     });
