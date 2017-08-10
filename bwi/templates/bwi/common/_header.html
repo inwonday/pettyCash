@@ -232,6 +232,8 @@
 
     $(function () {
 
+         $('.divisionInput').attr('value',localStorage.getItem('divisionId'))
+
         $('.companyName').click(function(){
             $('.companyName').css('background-color','white');
             $('.companyName').find('a').css('color','#4a4a4a');
