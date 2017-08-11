@@ -43,8 +43,7 @@ def pettyCashEntries(request=None):
         entries = PettyCashEntry.objects.filter(profile=user_profile);
     else:
         entries = PettyCashEntry.objects.all()
-    bal = PettyCashReceipt.objects.aggregate(Sum('amountReceived')).get('amountReceived__sum') - PettyCashEntry.objects.aggregate(Sum('totalAmount')).get('totalAmount__sum')
-    return render(request, 'bwi/pettyCashEntries.html',{'entries': entries, 'balance':bal, 'profile': user_profile, 'companies': [user_profile.company],'divisions': user_profile.divisions.all()})
+    return render(request, 'bwi/pettyCashEntries.html',{'entries': entries, 'profile': user_profile, 'companies': [user_profile.company],'divisions': user_profile.divisions.all()})
 
 def pettyCashReceipts(request=None):
     if request.user.is_anonymous():
@@ -55,8 +54,7 @@ def pettyCashReceipts(request=None):
     else:
         receipts = PettyCashReceipt.objects.all()
 
-    bal = PettyCashReceipt.objects.aggregate(Sum('amountReceived')).get('amountReceived__sum') - PettyCashEntry.objects.aggregate(Sum('totalAmount')).get('totalAmount__sum')
-    return render(request, 'bwi/pettyCashReceipts.html',{'companies': [user_profile.company],'divisions':user_profile.divisions.all(),'receipts': receipts, 'balance':bal, 'profile': user_profile})
+    return render(request, 'bwi/pettyCashReceipts.html',{'companies': [user_profile.company],'divisions':user_profile.divisions.all(),'receipts': receipts, 'profile': user_profile})
 
 def addPettyCashEntry(request=None):
     if request.user.is_anonymous():
